@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario en Línea de Registro de Llamadas - Servicio Concluido</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Configuración de Tailwind con la paleta original -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#A6802D', /* Dorado Institucional */
+                            light: '#bf9a41',
+                            dark: '#8a6b22'
+                        },
+                        secondary: {
+                            DEFAULT: '#9C2348', /* Guinda Institucional */
+                            light: '#b52e5a',
+                            dark: '#7d1c3a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos de la pantalla de inicio de sesión original -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; }
+        
+        #login-screen {
+            background: linear-gradient(135deg, #f0f2f5 0%, #e6e9ed 100%);
+        }
+        .login-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            display: flex;
+            max-width: 950px;
+            width: 100%;
+        }
+        .login-art {
+            background-color: #A6802D; /* Dorado original */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            width: 45%;
+            position: relative;
+        }
+        .login-form-container {
+            padding: 3.5rem 3rem;
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .modal-overlay { 
+            background-color: rgba(15, 23, 42, 0.7); 
+            backdrop-filter: blur(4px); 
+        }
+
+        .status-badge {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444; /* Rojo */
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .login-card { flex-direction: column; }
+            .login-art, .login-form-container { width: 100%; }
+            .login-art { padding: 2rem 1.5rem; }
+            .login-form-container { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-700 min-h-screen">
+
+    <!-- PANTALLA PRINCIPAL (Basada en el Login Original) -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="login-card">
+            
+            <!-- Columna Izquierda: Arte y Logo -->
+            <div class="login-art">
+                <img src="https://github.com/SAGB-JCM/SICOINLlamadasFormulario/blob/main/SICOINLlamadasFormulario%20-%20LOGO.png?raw=true" alt="Logo SICOIN" class="h-36 w-auto mb-8 drop-shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-3 leading-tight text-white drop-shadow-md">Formulario en Línea de Registro de Llamadas</h2>
+                <p class="text-center text-sm font-medium text-white/90">Sistema de Control y Gestión Institucional</p>
+                
+                <div class="status-badge">
+                    <span class="pulse-dot"></span>
+                    Servicio Suspendido
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Información de Cierre -->
+            <div class="login-form-container relative">
+                <div class="absolute top-6 right-6 text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                    Ref: Contrato DC-620-2025
+                </div>
+
+                <div class="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-red-50 text-secondary border border-red-100">
+                    <i class="fas fa-lock text-2xl"></i>
+                </div>
+
+                <h3 class="text-2xl font-black text-secondary mb-4 leading-tight">Acceso a Interfaz Concluido</h3>
+                
+                <div class="space-y-4 mb-8">
+                    <p class="text-sm text-slate-600 leading-relaxed text-justify">
+                        Se informa que, de conformidad con la conclusión del contrato de prestación de servicios de apoyo técnico y diseño de estrategias, <strong>la plataforma visual de registro y análisis ha finalizado su periodo de implementación.</strong>
+                    </p>
+                    
+                    <div class="bg-slate-50 border-l-4 border-primary p-4 rounded-r-lg">
+                        <p class="text-xs text-slate-700 font-medium mb-1">
+                            <i class="fas fa-database text-primary mr-1"></i> <strong>Soberanía de Datos:</strong>
+                        </p>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Toda la información institucional capturada reside íntegramente en la consola de Google Firebase vinculada a la cuenta de la dependencia. <strong>El consultor no conserva copias, accesos ni credenciales de su información.</strong>
+                        </p>
+                    </div>
+
+                    <p class="text-sm text-slate-600 leading-relaxed text-justify">
+                        Para la visualización, migración o explotación estadística de la base de datos, favor de <strong>consultar con el área de Soporte Técnico Institucional (TI)</strong> de su dependencia.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <button onclick="openModal('dataModal')" class="w-full bg-white border-2 border-slate-200 hover:border-primary hover:text-primary text-slate-700 font-bold py-3 px-4 rounded-xl shadow-sm transition-all duration-300 flex justify-center items-center gap-2">
+                        <i class="fas fa-file-export"></i> Protocolo de Datos
+                    </button>
+                    
+                    <button onclick="openModal('salesModal')" class="w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex justify-center items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fas fa-rocket"></i> Opciones de Continuidad y Adquisición
+                    </button>
+                </div>
+
+                <div class="mt-8 text-center border-t border-slate-100 pt-6">
+                    <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                        José Cruz Gómez Rodríguez &copy; 2025<br>Derechos de Propiedad Intelectual de Software Reservados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PROTOCOLO DE DATOS (FIREBASE) -->
+    <div id="dataModal" class="fixed inset-0 z-[60] hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform transition-all">
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-server text-primary"></i> Estado de la Base de Datos
+                </h3>
+                <button onclick="closeModal('dataModal')" class="text-slate-400 hover:text-red-500 transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <i class="fab fa-google text-4xl text-slate-300 mb-3"></i>
+                    <p class="text-sm text-slate-600">Su información se encuentra alojada en el entorno seguro de <strong>Google Firebase (Firestore)</strong>.</p>
+                </div>
+                
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start gap-3 text-sm">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="text-slate-600"><strong>Exportación Manual:</strong> El departamento de TI puede exportar los registros en formato JSON/CSV directamente desde la consola web de Google.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="text-slate-600"><strong>Sin Intermediarios:</strong> Como estipula la transferencia tecnológica, el acceso a la base de datos es exclusivo de la dependencia.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm">
+                        <i class="fas fa-exclamation-triangle text-amber-500 mt-1"></i>
+                        <span class="text-slate-600"><strong>Aviso Técnico:</strong> El código fuente (interfaz gráfica, dashboard y reportes en PDF) requiere hosting y mantenimiento independiente para interactuar con esta base de datos.</span>
+                    </li>
+                </ul>
+                <button onclick="closeModal('dataModal')" class="w-full py-3 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 transition-colors">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: OPCIONES DE CONTINUIDAD (VENTA DE CÓDIGO Y SAAS) -->
+    <div id="salesModal" class="fixed inset-0 z-[60] hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform transition-all">
+            <!-- Header del Modal -->
+            <div class="bg-secondary px-8 py-6 flex justify-between items-center sticky top-0 z-10">
+                <div class="text-white">
+                    <h3 class="text-2xl font-black tracking-tight mb-1">Activación de Plataforma Institucional</h3>
+                    <p class="text-secondary-light text-sm font-medium">Soluciones definitivas para la independencia tecnológica de la dependencia.</p>
+                </div>
+                <button onclick="closeModal('salesModal')" class="text-white/60 hover:text-white transition-colors bg-white/10 w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-8">
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <!-- OPCIÓN 1: Adquisición Total (Código Fuente) -->
+                    <div class="border-2 border-primary rounded-2xl p-6 relative overflow-hidden group hover:shadow-xl transition-all bg-white flex flex-col">
+                        <!-- Etiqueta Descuento -->
+                        <div class="absolute top-4 right-[-35px] bg-red-600 text-white text-[10px] font-black uppercase py-1 px-10 transform rotate-45 shadow-md">
+                            50% OFF
+                        </div>
+                        
+                        <div class="mb-4">
+                            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Recomendado</span>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold text-slate-800 mb-2">Adquisición Total del Sistema</h4>
+                        <p class="text-sm text-slate-500 mb-6 flex-grow">Propiedad intelectual absoluta. Compra del código fuente para instalar en servidores propios de la dependencia.</p>
+                        
+                        <div class="mb-6 pb-6 border-b border-slate-100">
+                            <div class="flex items-end gap-2 mb-1">
+                                <span class="text-3xl font-black text-slate-800">$15,000</span>
+                                <span class="text-sm text-slate-500 font-medium mb-1">MXN (Contado)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 line-through">Precio regular: $30,000 MXN</p>
+                            <div class="mt-2 bg-slate-50 rounded-lg p-2 text-center border border-slate-200">
+                                <span class="text-xs font-bold text-slate-600">O plan de 6 mensualidades de $3,500 MXN</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                            <li class="flex items-start gap-2"><i class="fas fa-code text-primary mt-1"></i> Entrega de código fuente original sin cifrar.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-server text-primary mt-1"></i> Asistencia en el despliegue (Deploy) en servidor institucional.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-file-contract text-primary mt-1"></i> Carta de cesión de derechos de uso permanente.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-unlink text-primary mt-1"></i> Eliminación de dependencia con proveedores externos.</li>
+                        </ul>
+
+                        <button class="w-full mt-auto bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors">
+                            Solicitar Cotización Formal
+                        </button>
+                    </div>
+
+                    <!-- OPCIÓN 2: Continuidad Operativa (SaaS / Mantenimiento) -->
+                    <div class="border border-slate-200 rounded-2xl p-6 hover:border-secondary hover:shadow-xl transition-all bg-slate-50 flex flex-col">
+                        <div class="mb-4 mt-2">
+                            <span class="bg-slate-200 text-slate-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Servicio Gestionado</span>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold text-slate-800 mb-2">Continuidad (SaaS) y Soporte</h4>
+                        <p class="text-sm text-slate-500 mb-6 flex-grow">Mantenga la plataforma en línea exactamente como estaba, sin preocuparse por servidores, actualizaciones o código.</p>
+                        
+                        <div class="mb-6 pb-6 border-b border-slate-200">
+                            <div class="flex items-end gap-2 mb-1">
+                                <span class="text-3xl font-black text-slate-800">$2,500</span>
+                                <span class="text-sm text-slate-500 font-medium mb-1">MXN / mes</span>
+                            </div>
+                            <p class="text-xs text-green-600 font-semibold mt-1"><i class="fas fa-bolt"></i> Activación Inmediata (Mismo día)</p>
+                        </div>
+
+                        <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                            <li class="flex items-start gap-2"><i class="fas fa-cloud text-secondary mt-1"></i> Reactivación de la interfaz gráfica y reportes.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-headset text-secondary mt-1"></i> Soporte técnico remoto y corrección de bugs.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-shield-alt text-secondary mt-1"></i> Mantenimiento de hosting, dominio SSL y conexión a BD.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-sync text-secondary mt-1"></i> Respaldos periódicos de la información en Firebase.</li>
+                        </ul>
+
+                        <button class="w-full mt-auto bg-white border-2 border-secondary text-secondary hover:bg-secondary hover:text-white font-bold py-3 px-4 rounded-xl shadow-sm transition-all duration-300">
+                            Reactivar Servicio
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="mt-8 text-center text-sm text-slate-500 bg-slate-100 p-4 rounded-xl border border-slate-200">
+                    <p><i class="fas fa-info-circle mr-1 text-slate-400"></i> Ambas opciones se gestionan de manera independiente al contrato original concluido, mediante una nueva orden de servicio o adjudicación simplificada directa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funciones simples para manejar los modales sin dependencias complejas
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            // Pequeño delay para la animación de opacidad
+            setTimeout(() => {
+                modal.firstElementChild.classList.add('scale-100', 'opacity-100');
+                modal.firstElementChild.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.firstElementChild.classList.remove('scale-100', 'opacity-100');
+            modal.firstElementChild.classList.add('scale-95', 'opacity-0');
+            // Esperar a que termine la transición para ocultar
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 200);
+        }
+
+        // Cerrar al hacer clic fuera del contenido del modal
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                closeModal(event.target.id);
+            }
+        }
+        
+        // Inicializar estado de animación de los modales
+        document.addEventListener("DOMContentLoaded", function() {
+            const modals = document.querySelectorAll('.modal-overlay > div');
+            modals.forEach(m => {
+                m.classList.add('scale-95', 'opacity-0', 'transition-all', 'duration-200', 'ease-in-out');
+            });
+        });
+    </script>
+</body>
+</html>
